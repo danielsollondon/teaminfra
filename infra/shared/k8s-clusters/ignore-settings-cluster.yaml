@@ -13,7 +13,7 @@ spec:
       - annotationsAllowed: "pods=[*]"
       - labelsAllowed: : "pods=[*]"
     omsAgent:
-      - logAnalyticsWorkspaceId: "/subscriptions/e049fcf1-c84b-4de4-ba9a-a168a4cbab7a/resourceGroups/prod-clu-grp01/providers/Microsoft.OperationalInsights/workspaces/perfclusterlogs",
+      - logAnalyticsWorkspaceId: "/subscriptions/e049fcf1-c84b-4de4-ba9a-a168a4cbab7a/resourceGroups/prod-clu-grp01/providers/Microsoft.OperationalInsights/workspaces/perfclusterlogs"
       - msiAuthForMonitoringEnabled: true
   forProvider:
     defaultNodePool:
