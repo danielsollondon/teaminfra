@@ -18,9 +18,10 @@ spec:
   forProvider:
     defaultNodePool:
       - name: default
-        nodeCount: 1
         vmSize: Standard_D2_v2
         enableAutoScaling: true
+        max_count: 10
+        min_count: 1
     dnsPrefix: ignoreme-clu01
     identity:
       - type: SystemAssigned
