@@ -20,7 +20,8 @@ spec:
       - name: default
         vmSize: Standard_D2_v2
         enableAutoScaling: true
-        max_count: 10
+        maxCount: 10
+        minCount: 1
     dnsPrefix: ignoreme-clu02
     identity:
       - type: SystemAssigned
