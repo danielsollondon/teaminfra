@@ -1,0 +1,41 @@
+apiVersion: containerservice.azure.upbound.io/v1beta1
+kind: KubernetesCluster
+metadata:
+  labels:
+    testing.upbound.io/example-name: ignoreme-clu02
+  name: ignoreme-clu02
+spec:
+  managementPolicies: ["Observe", "Create", "Update", "Delete"]
+  initProvider:
+    microsoftDefender:
+      - logAnalyticsWorkspaceId: "/subscriptions/e049fcf1-c84b-4de4-ba9a-a168a4cbab7a/resourcegroups/DefaultResourceGroup-USW3/providers/Microsoft.OperationalInsights/workspaces/DefaultWorkspace-e049fcf1-c84b-4de4-ba9a-a168a4cbab7a-USW3"
+    monitorMetrics:
+      - annotationsAllowed: "pods=[*]"
+      - labelsAllowed: "pods=[*]"
+    omsAgent:
+      - logAnalyticsWorkspaceId: "/subscriptions/e049fcf1-c84b-4de4-ba9a-a168a4cbab7a/resourceGroups/prod-clu-grp01/providers/Microsoft.OperationalInsights/workspaces/perfclusterlogs"
+      - msiAuthForMonitoringEnabled: true
+  forProvider:
+    defaultNodePool:
+      - name: default
+        vmSize: Standard_D4s_v4
+        enableAutoScaling: true
+        maxCount: 10
+        minCount: 3
+    dnsPrefix: ignoreme-clu02
+    identity:
+      - type: SystemAssigned
+    oidcIssuerEnabled: true
+    workloadIdentityEnabled: true
+    keyVaultSecretsProvider:
+      - secretRotationEnabled: true
+    upgradeSettings:
+      - maxSurge: "10%"
+    nodeOsChannelUpgrade: SecurityPatch
+    location: West US 3
+    azurePolicyEnabled: true
+    resourceGroupName: prod-clu-grp01
+    tags:
+      Environment: Production
+      Location: Seattle
+      Owner: piere
