@@ -20,7 +20,7 @@ spec:
       - name: default
         vmSize: Standard_D4s_v4
         enableAutoScaling: true
-        maxCount: 5
+        maxCount: 3
         minCount: 1
     dnsPrefix: sh01-eus2-02
     identity:
