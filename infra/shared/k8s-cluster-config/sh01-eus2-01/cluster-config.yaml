@@ -7,4 +7,20 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: appteam2-app2-ns
-
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    name: core-app-testing
+    namespace: argocd
+spec:
+    project: default
+    source:    
+        repoURL: https://github.com/danielsollondon/appteam2
+        targetRevision: HEAD
+        path: staging         
+    syncPolicy:
+        automated: {}
+    destination:
+        namespace: appteam2-app2-ns
+        server: https://kubernetes.default.svc
