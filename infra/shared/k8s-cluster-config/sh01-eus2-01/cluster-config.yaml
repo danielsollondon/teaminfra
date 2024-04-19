@@ -2,20 +2,3 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: itops
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: cluster-bootstrap
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/danielsollondon/teaminfra
-    targetRevision: HEAD
-    path: infra/shared/k8s-cluster-config/sh01-eus2-01 
-    syncPolicy:
-        automated: {}
-  destination:
-    server: "https://kubernetes.default.svc"
-    namespace: argocd
