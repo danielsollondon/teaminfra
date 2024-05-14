@@ -38,3 +38,19 @@ spec:
       Environment: Production
       Location: Seattle
       Owner: piere
+---
+apiVersion: helm.crossplane.io/v1beta1
+kind: Release
+metadata:
+  annotations: 
+      crossplane.io/external-name: argocd   
+  name: sh01-eus2-02-argo  
+spec:
+  forProvider:
+      chart:
+          name: argo-cd
+          repository: https://argoproj.github.io/argo-helm
+          version:  6.9.2
+      namespace: argocd   
+  providerConfigRef: pc-sh03-eus2-02
+
