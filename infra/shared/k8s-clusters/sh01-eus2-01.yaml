@@ -2,8 +2,8 @@ apiVersion: containerservice.azure.upbound.io/v1beta1
 kind: KubernetesCluster
 metadata:
   labels:
-    testing.upbound.io/example-name: sh01-eus2-02
-  name: sh01-eus2-02
+    testing.upbound.io/example-name: sh03-eus2-02
+  name: sh03-eus2-02
 spec:
   managementPolicies: ["Observe", "Create", "Update", "Delete"]
   initProvider:
@@ -22,7 +22,7 @@ spec:
         enableAutoScaling: true
         maxCount: 5
         minCount: 1
-    dnsPrefix: sh01-eus2-02
+    dnsPrefix: sh03-eus2-02
     identity:
       - type: SystemAssigned
     oidcIssuerEnabled: true
@@ -38,70 +38,3 @@ spec:
       Environment: Production
       Location: Seattle
       Owner: piere
----
-apiVersion: helm.crossplane.io/v1beta1
-kind: ProviderConfig
-metadata:
-  name: helm-provider02
-spec:
-  credentials:
-    source: Secret
-    secretRef:
-      name: sh01-eus2-02-cred
-      namespace: upbound-system
-      key: kubeconfig
----
-apiVersion: helm.crossplane.io/v1beta1
-kind: Release
-metadata:
-    annotations: 
-        crossplane.io/external-name: argocd   
-    name: sh01-eus2-02-argo  
-
-spec:
-    forProvider:
-        chart:
-            name: argo-cd
-            repository: https://argoproj.github.io/argo-helm
-            version:  6.7.2
-        namespace: argocd   
-    providerConfigRef:
-        name: helm-provider02
----
-apiVersion: kubernetes.crossplane.io/v1alpha1
-kind: ProviderConfig
-metadata:
-  name: helm-provider02
-spec:
-  credentials:
-    source: Secret
-    secretRef:
-      name: sh01-eus2-02-cred
-      namespace: upbound-system
-      key: kubeconfig
----
-apiVersion: kubernetes.crossplane.io/v1alpha2
-kind: Object
-metadata:
-  name: sh01-eus2-01-bs-obj
-spec:
-    forProvider:
-        manifest:
-            apiVersion: argoproj.io/v1alpha1
-            kind: Application
-            metadata:
-                name: cluster-bootstrap
-                namespace: argocd
-            spec:
-                project: default
-                source:    
-                    repoURL: https://github.com/danielsollondon/teaminfra
-                    targetRevision: HEAD
-                    path: infra/shared/k8s-cluster-config/sh01-eus2-01         
-                syncPolicy:
-                    automated: {}
-                destination:
-                    namespace: argocd
-                    server: https://kubernetes.default.svc
-    providerConfigRef:
-        name: helm-provider02

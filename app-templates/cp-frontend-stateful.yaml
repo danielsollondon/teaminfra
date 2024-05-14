@@ -38,14 +38,14 @@ spec:
     objects:  |
       array:
         - |
-          objectName: "${KEYVAULT_SECRET_NAME}"   
+          objectName: db-conn-string  
           objectType: secret
     tenantId: "${TENANT_ID}"                 # The tenant ID of the key vault                              
   secretObjects:                              # [OPTIONAL] SecretObjects defines the desired state of synced Kubernetes secret objects
   - data:
-    - key: "${KEYVAULT_SECRET_NAME}"                             # data field to populate
-      objectName: "${KEYVAULT_SECRET_NAME}"                           # name of the mounted content to sync; this could be the object name or the object alias
-    secretName: "${KEYVAULT_SECRET_NAME}"                     # name of the Kubernetes secret object
+    - key: db-conn-string                            # data field to populate
+      objectName: db-conn-string                           # name of the mounted content to sync; this could be the object name or the object alias
+    secretName: db-conn-string                     # name of the Kubernetes secret object
     type: Opaque                              # type of Kubernetes secret object (for example, Opaque, kubernetes.io/tls)
 ---
 kind: Pod
@@ -71,14 +71,8 @@ spec:
       - name: db-conn-string
         valueFrom:
           secretKeyRef:
-            name: "${KEYVAULT_SECRET_NAME}" 
-            key: "${KEYVAULT_SECRET_NAME}" 
-  volumes:
-    - name: secrets-store01-inline
-      csi:
-        driver: secrets-store.csi.k8s.io
-        readOnly: true
-        volumeAttributes:
-          secretProviderClass: spc-app-env-vars
+            name: db-conn-string 
+            key: db-conn-string 
+
      
 
