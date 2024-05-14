@@ -34,3 +34,28 @@ spec:
       objectName: db-conn-string                          # name of the mounted content to sync; this could be the object name or the object alias
     secretName: db-conn-string                    # name of the Kubernetes secret object
     type: Opaque                              # type of Kubernetes secret object (for example, Opaque, kubernetes.io/tls)
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  namespace: {{ .Values.namespace.name }}
+  labels:
+    azure.workload.identity/use: "true"
+spec:
+  serviceAccountName: {{ .Values.namespace.name }}
+  containers:
+    - name: busybox
+      image: k8s.gcr.io/e2e-test-images/busybox:1.29-1
+      command:
+        - "/bin/sleep"
+        - "10000"
+      volumeMounts:
+      - name: secrets-store01-inline
+        mountPath: "/mnt/secrets-store"
+        readOnly: true
+      env:
+      - name: db-conn-string
+        valueFrom:
+          secretKeyRef:
+            name: db-conn-string 
+            key: db-conn-string 
