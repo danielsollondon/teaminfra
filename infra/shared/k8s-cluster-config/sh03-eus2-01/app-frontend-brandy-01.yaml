@@ -1,10 +1,2 @@
-apiVersion: compute.example.com/v1alpha1
-kind: FrontEndApp
-metadata:
-  name: bingo
-spec: 
-  location: EU
-  repoUrl:  https://github.com/danielsollondon/teaminfra
-  repoPath: infra/shared/k8s-cluster-config/main-infra-002
-  appName: testfront02
+
 
