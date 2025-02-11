@@ -3,28 +3,6 @@ kind: Namespace
 apiVersion: v1
 metadata:
   name: {{ .Values.namespace.name }}
-  labels:
----
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: small-quota
-  namespace: {{ .Values.namespace.name }}
-spec:
-  hard:
-    requests.cpu: "2"
-    requests.memory: 1Gi
-    limits.cpu: "4"
-    limits.memory: 2Gi
----
-apiVersion: policy/v1
-kind: PodDisruptionBudget
-metadata:
-  name: pdb-default-small
-  namespace: {{ .Values.namespace.name }}
-spec:
-  minAvailable: 30%
-  selector: {} # test
 ---
 apiVersion: v1
 kind: ServiceAccount
