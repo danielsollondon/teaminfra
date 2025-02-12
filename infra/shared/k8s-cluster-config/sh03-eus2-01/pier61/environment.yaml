@@ -1,0 +1,10 @@
+apiVersion: compute.example.com/v1alpha1
+kind: backend-data-tier-small
+metadata:
+  name: pier61
+spec: 
+  location: EU
+  appname: pier61
+  repourl: https://github.com/danielsollondon/backend-datatier/
+  repopath: /
+  branchname: not61
