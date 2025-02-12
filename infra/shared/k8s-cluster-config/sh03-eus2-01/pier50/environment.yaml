@@ -5,6 +5,6 @@ metadata:
 spec: 
   location: EU
   appname: pier50
-  repourl: ./backend-datatier
-  repopath: https://github.com/danielsollondon/backstack/
+  repourl: /
+  repopath: https://github.com/danielsollondon/backend-datatier/
   branchname: not50
