@@ -1,0 +1,10 @@
+apiVersion: compute.example.com/v1alpha1
+kind: backend-data-tier-small
+metadata:
+  name: pier50
+spec: 
+  location: EU
+  appname: pier50
+  repourl: ./backend-datatier
+  repopath: https://github.com/danielsollondon/backstack/
+  branchname: not50
