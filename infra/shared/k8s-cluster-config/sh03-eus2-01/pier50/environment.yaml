@@ -6,5 +6,5 @@ spec:
   location: EU
   appname: pier50
   repourl: https://github.com/danielsollondon/backend-datatier
-  repopath: /
+  repopath: .
   branchname: not50
